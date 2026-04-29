@@ -5,11 +5,14 @@
   "name": "AntiFreecam evolved",
   "description": "Forces Freecam clients to keep collisions enabled when required by the server.",
   "authors": [
+    "kontraschub"
+  ],
+  "contributors": [
     "Kesuaheli"
   ],
   "contact": {
-    "sources": "https://github.com/Kesuaheli/AntiFreecam",
-    "issues": "https://github.com/Kesuaheli/AntiFreecam/issues"
+    "sources": "https://github.com/kontraschub/AntiFreecam-evolved",
+    "issues": "https://github.com/kontraschub/AntiFreecam-evolved/issues"
   },
   "license": "MIT",
   "icon": "assets/antifreecam/icon.png",
@@ -41,4 +44,3 @@
     "freecam": ">=1.4.0-alpha.3"
   }
 }
-
