@@ -1,0 +1,13 @@
+{
+  "required": true,
+  "minVersion": "0.8",
+  "package": "de.kesuaheli.antifreecam.client.mixin",
+  "plugin": "de.kesuaheli.antifreecam.client.mixin.MixinPlugin",
+  "compatibilityLevel": "JAVA_25",
+  "client": [
+  ],
+  "injectors": {
+    "defaultRequire": 1
+  }
+}
+

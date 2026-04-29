@@ -12,11 +12,15 @@ desktop.ini
 *.bak
 
 # Build outputs
+.gradle/
 bin/
 obj/
 build/
 dist/
 out/
+run/
+*.class
+*.jar
 
 # Dependency folders
 node_modules/
@@ -26,4 +30,3 @@ packages/
 .env
 .env.*
 !.env.example
-

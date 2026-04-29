@@ -13,7 +13,18 @@ Abweichungen sollen nur vorgenommen werden, wenn die neue technische Basis es er
 - Git-Repository initialisiert.
 - Grundlegende Projektdateien angelegt.
 - Zielsetzung fuer die Portierung dokumentiert.
-- Naechster Schritt: alten Mod-Code und Zielplattform der neuen Version analysieren.
+- Fabric-Projektgeruest fuer Minecraft Java Edition 26.1.2 angelegt.
+- Kernfunktionalitaet der alten Mod portiert.
+- Gradle-Build erfolgreich.
+- Naechster Schritt: Verhalten mit Freecam 1.4.0-alpha.3 im Client und Server testen.
+
+## Zielplattform
+
+- Minecraft Java Edition: 26.1.2
+- Modloader: Fabric
+- Fabric Loader: 0.19.2
+- Fabric API: 0.147.0+26.1.2
+- Java: 25 oder neuer
 
 ## Arbeitsweise
 
@@ -22,3 +33,17 @@ Abweichungen sollen nur vorgenommen werden, wenn die neue technische Basis es er
 3. Zielplattform und technische Rahmenbedingungen der neuen Version klaeren.
 4. Funktionen einzeln portieren.
 5. Abweichungen und offene Punkte nachhalten.
+
+## Portierte Funktionalitaet
+
+- Server registriert ein Konfigurationspaket.
+- Server verlangt AntiFreecam auf dem Client.
+- Server sendet `forceCollision=true` beim Konfigurations-Handshake.
+- Client speichert die Servervorgabe.
+- Client-Mixin erzwingt bei installierter Freecam-Mod Blockkollisionen.
+
+## Build
+
+```powershell
+.\gradlew.bat build
+```

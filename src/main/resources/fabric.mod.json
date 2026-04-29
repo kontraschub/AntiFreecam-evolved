@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 1,
+  "id": "antifreecam",
+  "version": "${mod_version}",
+  "name": "AntiFreecam evolved",
+  "description": "Forces Freecam clients to keep collisions enabled when required by the server.",
+  "authors": [
+    "Kesuaheli"
+  ],
+  "contact": {
+    "sources": "https://github.com/Kesuaheli/AntiFreecam",
+    "issues": "https://github.com/Kesuaheli/AntiFreecam/issues"
+  },
+  "license": "MIT",
+  "icon": "assets/antifreecam/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "de.kesuaheli.antifreecam.AntiFreecam"
+    ],
+    "server": [
+      "de.kesuaheli.antifreecam.server.AntiFreecamServer"
+    ],
+    "client": [
+      "de.kesuaheli.antifreecam.client.AntiFreecamClient"
+    ]
+  },
+  "mixins": [
+    {
+      "config": "antifreecam.client.mixins.json",
+      "environment": "client"
+    }
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "minecraft": "=${minecraft_version}",
+    "java": ">=25",
+    "fabric-api": "*"
+  },
+  "suggests": {
+    "freecam": ">=1.4.0-alpha.3"
+  }
+}
+
