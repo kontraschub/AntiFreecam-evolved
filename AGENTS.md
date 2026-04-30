@@ -1,6 +1,5 @@
 # AGENTS.md
 
-## Projektanweisungen
+## Project Instructions
 
-Beruecksichtige in allen Projekten die Anweisungen in der `CLAUDE.md` des Projects `Second-Brain` unter `E:\Obsidian\Second-Brain`.
-
+In all projects, also follow the instructions in the `CLAUDE.md` file of the `Second-Brain` project at `E:\Obsidian\Second-Brain`.

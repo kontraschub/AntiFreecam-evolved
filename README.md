@@ -1,62 +1,62 @@
 # AntiFreecam evolved
 
-`AntiFreecam evolved` ist eine Fabric-Mod fuer Minecraft-Server, die Freecam-Clients dazu zwingt, Blockkollisionen aktiv zu lassen, wenn der Server das verlangt.
+`AntiFreecam evolved` is a Fabric mod for Minecraft servers that forces Freecam clients to keep block collisions enabled when the server requires it.
 
-Die Mod ist aus `AntiFreecam` von Kesuaheli abgeleitet und portiert die Funktionalitaet auf die aktuelle technische Basis.
+The mod is derived from Kesuaheli's `AntiFreecam` and ports the functionality to the current technical baseline.
 
-## Funktionalitaet
+## Functionality
 
-Freecam-Mods erlauben es Spielern, die Kamera unabhaengig vom eigenen Spielerkoerper zu bewegen. Das ist fuer Screenshots, Bauen oder Administration praktisch, kann aber auf Servern problematisch sein, wenn Spieler damit in Bereiche schauen oder sich durch Raeume bewegen, die normalerweise durch Blockkollisionen begrenzt sind.
+Freecam mods allow players to move the camera independently from the player body. This is useful for screenshots, building, and administration, but it can be problematic on servers when players use it to look into or move through areas that are normally limited by block collisions.
 
-`AntiFreecam evolved` setzt genau an diesem Punkt an:
+`AntiFreecam evolved` addresses that specific behavior:
 
-- Der Server registriert ein eigenes Konfigurationspaket.
-- Beim Verbindungsaufbau verlangt der Server, dass der Client diese AntiFreecam-Mod installiert hat.
-- Der Server sendet dem Client die Vorgabe `forceCollision=true`.
-- Der Client speichert diese Servervorgabe fuer die laufende Verbindung.
-- Wenn die Freecam-Mod installiert ist, greift ein Mixin in deren Konfiguration ein.
-- Blockkollisionen bleiben dann in Freecam aktiv, auch wenn Freecam sie normalerweise deaktivieren wuerde.
+- The server registers a custom configuration payload.
+- During connection setup, the server requires the client to have this AntiFreecam mod installed.
+- The server sends the client the setting `forceCollision=true`.
+- The client stores this server setting for the current connection.
+- If the Freecam mod is installed, a mixin hooks into its configuration.
+- Block collisions then remain active in Freecam, even when Freecam would normally disable them.
 
-Das Ziel ist nicht, Freecam komplett zu verbieten. Die Kamera kann weiter genutzt werden. Die Mod stellt nur sicher, dass Freecam auf Servern mit entsprechender Vorgabe keine deaktivierten Blockkollisionen nutzt.
+The goal is not to ban Freecam completely. The camera can still be used. The mod only ensures that Freecam does not use disabled block collisions on servers that require collision enforcement.
 
-## Herkunft
+## Origin
 
-Dieses Projekt basiert auf der urspruenglichen Idee und Funktionalitaet von `AntiFreecam` von Kesuaheli. Die abgeleitete Version pflegt die Funktion fuer neuere Minecraft-, Fabric- und Freecam-Versionen weiter.
+This project is based on the original idea and functionality of Kesuaheli's `AntiFreecam`. This derived version keeps that behavior working on newer Minecraft, Fabric, and Freecam versions.
 
 ## Status
 
-- Git-Repository initialisiert.
-- Grundlegende Projektdateien angelegt.
-- Funktionalitaet und Herkunft dokumentiert.
-- Fabric-Projektgeruest fuer Minecraft Java Edition 26.1.2 angelegt.
-- Kernfunktionalitaet der alten Mod portiert.
-- Gradle-Build erfolgreich.
-- Naechster Schritt: Verhalten mit Freecam 1.4.0-alpha.3 im Client und Server testen.
+- Git repository initialized.
+- Basic project files created.
+- Functionality and origin documented.
+- Fabric project scaffold created for Minecraft Java Edition 26.1.2.
+- Core functionality from the old mod ported.
+- Gradle build passes.
+- Next step: test behavior with Freecam 1.4.0-alpha.3 on client and server.
 
-## Zielplattform
+## Target Platform
 
 - Minecraft Java Edition: 26.1.2
-- Modloader: Fabric
+- Mod loader: Fabric
 - Fabric Loader: 0.19.2
 - Fabric API: 0.147.0+26.1.2
-- Java: 25 oder neuer
+- Java: 25 or newer
 
-## Arbeitsweise
+## Workflow
 
-1. Alte Mods inventarisieren.
-2. Funktionalitaet und Verhalten nachvollziehbar dokumentieren.
-3. Zielplattform und technische Rahmenbedingungen der neuen Version klaeren.
-4. Funktionen einzeln portieren.
-5. Abweichungen und offene Punkte nachhalten.
+1. Inventory the old mods.
+2. Document functionality and behavior in a traceable way.
+3. Clarify the target platform and technical constraints of the new version.
+4. Port features one by one.
+5. Track deviations and open points.
 
-## Portierte Funktionalitaet
+## Ported Functionality
 
-- Serverseitiger Konfigurations-Handshake.
-- Pflicht zur installierten Client-Mod.
-- Uebertragung der Servervorgabe `forceCollision=true`.
-- Clientseitige Speicherung der Servervorgabe.
-- Integration mit Freecam ueber ein Client-Mixin.
-- Erzwingen aktiver Blockkollisionen in Freecam.
+- Server-side configuration handshake.
+- Required client-side mod installation.
+- Transfer of the server setting `forceCollision=true`.
+- Client-side storage of the server setting.
+- Integration with Freecam through a client mixin.
+- Enforcement of active block collisions in Freecam.
 
 ## Build
 

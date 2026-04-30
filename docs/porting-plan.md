@@ -1,59 +1,59 @@
-# Portierungsplan
+# Porting Plan
 
-## Ziel
+## Goal
 
-Die alte Mod-Funktionalitaet wird soweit moeglich eins zu eins in `AntiFreecam evolved` uebernommen.
+The old mod functionality is carried over to `AntiFreecam evolved` as closely as possible.
 
-## Vorgehen
+## Approach
 
-1. Quellcode der alten Mods aufnehmen.
-2. Zielversion und Modding-Framework der neuen Version bestimmen.
-3. Funktionale Bestandsaufnahme erstellen.
-4. Abhaengigkeiten, Events, Hooks und Konfigurationen vergleichen.
-5. Portierung in kleinen, nachvollziehbaren Commits umsetzen.
-6. Verhalten gegen die alte Version pruefen.
+1. Collect the source code of the old mods.
+2. Determine the target version and modding framework for the new version.
+3. Create a functional inventory.
+4. Compare dependencies, events, hooks, and configuration points.
+5. Implement the port in small, traceable commits.
+6. Verify behavior against the old version.
 
-## Inventar alte Mods
+## Old Mod Inventory
 
-| Mod | Quelle | Status | Notizen |
+| Mod | Source | Status | Notes |
 | --- | --- | --- | --- |
-| AntiFreecam | https://github.com/Kesuaheli/AntiFreecam | analysiert | Fabric-Mod fuer Server und Client |
-| Freecam | https://github.com/MinecraftFreecam/Freecam | analysiert | Zielintegration fuer Freecam 1.4.0-alpha.3 |
+| AntiFreecam | https://github.com/Kesuaheli/AntiFreecam | analyzed | Fabric mod for server and client |
+| Freecam | https://github.com/MinecraftFreecam/Freecam | analyzed | Target integration for Freecam 1.4.0-alpha.3 |
 
-## Zielplattform neue Version
+## New Target Platform
 
-| Thema | Wert |
+| Topic | Value |
 | --- | --- |
-| Spiel / Anwendung | Minecraft Java Edition |
+| Game / application | Minecraft Java Edition |
 | Version | 26.1.2 |
-| Modding-Framework | Fabric |
-| Programmiersprache | Java 25 |
-| Build-System | Gradle mit Fabric Loom |
+| Modding framework | Fabric |
+| Programming language | Java 25 |
+| Build system | Gradle with Fabric Loom |
 | Fabric Loader | 0.19.2 |
 | Fabric API | 0.147.0+26.1.2 |
 
-## Funktionsmatrix
+## Function Matrix
 
-| Funktion | Alte Umsetzung | Neue Umsetzung | Status | Abweichung |
+| Function | Old implementation | New implementation | Status | Deviation |
 | --- | --- | --- | --- | --- |
-| Mod-ID | `antifreecam` | `antifreecam` | portiert | keine |
-| Gemeinsame Initialisierung | Registrierung von `FreecamConfigS2CPacket` | Registrierung von `FreecamConfigClientboundPayload` | portiert | Klassennamen auf Mojang/Fabric-26.1-Namen angepasst |
-| Serverpflicht fuer Client-Mod | Disconnect, wenn Client Payload nicht senden kann | Disconnect, wenn Client Payload nicht senden kann | portiert | Text auf Satzschreibung angepasst |
-| Servervorgabe | `forceCollision=true` im Configuration-Handshake | `forceCollision=true` im Configuration-Handshake | portiert | keine |
-| Clientempfang | `ClientConfigurationNetworking.registerGlobalReceiver` | `ClientConfigurationNetworking.registerGlobalReceiver` | portiert | Payload-Typen auf 26.1 angepasst |
-| Freecam-Erkennung | `FabricLoader.isModLoaded("freecam")` | `FabricLoader.isModLoaded("freecam")` | portiert | keine |
-| Freecam-Kollisionszwang | Mixin auf `CollisionBehavior.isIgnored` | Mixin auf `ModConfigDTO.ignoreCollisionWith` | portiert | Freecam 1.4.0-alpha.3 hat die alte Zielklasse ersetzt |
-| Datengenerator | Client-Datengenerator vorhanden | nicht uebernommen | offen | kein funktionaler Beitrag im alten Verhalten erkennbar |
+| Mod ID | `antifreecam` | `antifreecam` | ported | none |
+| Shared initialization | Registration of `FreecamConfigS2CPacket` | Registration of `FreecamConfigClientboundPayload` | ported | Class names adapted to Mojang/Fabric 26.1 names |
+| Required client mod | Disconnect if the client cannot send the payload | Disconnect if the client cannot send the payload | ported | Text changed to sentence case |
+| Server setting | `forceCollision=true` in the configuration handshake | `forceCollision=true` in the configuration handshake | ported | none |
+| Client reception | `ClientConfigurationNetworking.registerGlobalReceiver` | `ClientConfigurationNetworking.registerGlobalReceiver` | ported | Payload types adapted to 26.1 |
+| Freecam detection | `FabricLoader.isModLoaded("freecam")` | `FabricLoader.isModLoaded("freecam")` | ported | none |
+| Freecam collision enforcement | Mixin on `CollisionBehavior.isIgnored` | Mixin on `ModConfigDTO.ignoreCollisionWith` | ported | Freecam 1.4.0-alpha.3 replaced the old target class |
+| Data generator | Client data generator exists | not carried over | open | No functional contribution to the old behavior identified |
 
-## Offene Punkte
+## Open Points
 
-- Laufzeittest mit Minecraft 26.1.2, Fabric Loader und Freecam 1.4.0-alpha.3 durchfuehren.
-- Entscheiden, ob Datengenerator aus der alten Mod weiterhin gebraucht wird.
+- Run a runtime test with Minecraft 26.1.2, Fabric Loader, and Freecam 1.4.0-alpha.3.
+- Decide whether the data generator from the old mod is still needed.
 
-## Verifikation
+## Verification
 
-| Pruefung | Ergebnis |
+| Check | Result |
 | --- | --- |
-| Gradle Build | bestanden mit `.\gradlew.bat build` |
-| Artefakt | `build/libs/antifreecam-evolved-1.0.0.jar` |
-| Laufzeittest | offen |
+| Gradle build | passed with `.\gradlew.bat build` |
+| Artifact | `build/libs/antifreecam-evolved-1.0.0.jar` |
+| Runtime test | open |
