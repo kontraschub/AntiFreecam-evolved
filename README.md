@@ -1,18 +1,33 @@
 # AntiFreecam evolved
 
-Arbeitsrepository fuer das Projekt `AntiFreecam evolved`.
+`AntiFreecam evolved` ist eine Fabric-Mod fuer Minecraft-Server, die Freecam-Clients dazu zwingt, Blockkollisionen aktiv zu lassen, wenn der Server das verlangt.
 
-## Zielsetzung
+Die Mod ist aus `AntiFreecam` von Kesuaheli abgeleitet und portiert die Funktionalitaet auf die aktuelle technische Basis.
 
-Die bestehende Funktionalitaet der alten Mods soll soweit moeglich eins zu eins in die neue Version portiert werden.
+## Funktionalitaet
 
-Abweichungen sollen nur vorgenommen werden, wenn die neue technische Basis es erzwingt oder wenn eine alte Funktion nicht mehr sinnvoll oder stabil umsetzbar ist. Solche Abweichungen werden dokumentiert.
+Freecam-Mods erlauben es Spielern, die Kamera unabhaengig vom eigenen Spielerkoerper zu bewegen. Das ist fuer Screenshots, Bauen oder Administration praktisch, kann aber auf Servern problematisch sein, wenn Spieler damit in Bereiche schauen oder sich durch Raeume bewegen, die normalerweise durch Blockkollisionen begrenzt sind.
+
+`AntiFreecam evolved` setzt genau an diesem Punkt an:
+
+- Der Server registriert ein eigenes Konfigurationspaket.
+- Beim Verbindungsaufbau verlangt der Server, dass der Client diese AntiFreecam-Mod installiert hat.
+- Der Server sendet dem Client die Vorgabe `forceCollision=true`.
+- Der Client speichert diese Servervorgabe fuer die laufende Verbindung.
+- Wenn die Freecam-Mod installiert ist, greift ein Mixin in deren Konfiguration ein.
+- Blockkollisionen bleiben dann in Freecam aktiv, auch wenn Freecam sie normalerweise deaktivieren wuerde.
+
+Das Ziel ist nicht, Freecam komplett zu verbieten. Die Kamera kann weiter genutzt werden. Die Mod stellt nur sicher, dass Freecam auf Servern mit entsprechender Vorgabe keine deaktivierten Blockkollisionen nutzt.
+
+## Herkunft
+
+Dieses Projekt basiert auf der urspruenglichen Idee und Funktionalitaet von `AntiFreecam` von Kesuaheli. Die abgeleitete Version pflegt die Funktion fuer neuere Minecraft-, Fabric- und Freecam-Versionen weiter.
 
 ## Status
 
 - Git-Repository initialisiert.
 - Grundlegende Projektdateien angelegt.
-- Zielsetzung fuer die Portierung dokumentiert.
+- Funktionalitaet und Herkunft dokumentiert.
 - Fabric-Projektgeruest fuer Minecraft Java Edition 26.1.2 angelegt.
 - Kernfunktionalitaet der alten Mod portiert.
 - Gradle-Build erfolgreich.
@@ -29,18 +44,19 @@ Abweichungen sollen nur vorgenommen werden, wenn die neue technische Basis es er
 ## Arbeitsweise
 
 1. Alte Mods inventarisieren.
-2. Funktionalitaet und Verhalten dokumentieren.
+2. Funktionalitaet und Verhalten nachvollziehbar dokumentieren.
 3. Zielplattform und technische Rahmenbedingungen der neuen Version klaeren.
 4. Funktionen einzeln portieren.
 5. Abweichungen und offene Punkte nachhalten.
 
 ## Portierte Funktionalitaet
 
-- Server registriert ein Konfigurationspaket.
-- Server verlangt AntiFreecam auf dem Client.
-- Server sendet `forceCollision=true` beim Konfigurations-Handshake.
-- Client speichert die Servervorgabe.
-- Client-Mixin erzwingt bei installierter Freecam-Mod Blockkollisionen.
+- Serverseitiger Konfigurations-Handshake.
+- Pflicht zur installierten Client-Mod.
+- Uebertragung der Servervorgabe `forceCollision=true`.
+- Clientseitige Speicherung der Servervorgabe.
+- Integration mit Freecam ueber ein Client-Mixin.
+- Erzwingen aktiver Blockkollisionen in Freecam.
 
 ## Build
 
