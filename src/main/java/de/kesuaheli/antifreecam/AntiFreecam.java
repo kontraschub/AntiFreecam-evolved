@@ -7,7 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class AntiFreecam implements ModInitializer {
-    public static final String MOD_ID = "antifreecam";
+    public static final String MOD_ID = "antifreecam-evolved";
     public static final Logger LOGGER = LoggerFactory.getLogger(MOD_ID);
 
     @Override
@@ -18,4 +18,3 @@ public class AntiFreecam implements ModInitializer {
         );
     }
 }
-

@@ -1,6 +1,6 @@
 {
   "schemaVersion": 1,
-  "id": "antifreecam",
+  "id": "antifreecam-evolved",
   "version": "${mod_version}",
   "name": "AntiFreecam evolved",
   "description": "Forces Freecam clients to keep collisions enabled when required by the server.",
