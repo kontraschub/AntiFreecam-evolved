@@ -63,6 +63,14 @@ def curseforgeProjectId = gradleOrEnvProvider("curseforge_project_id", [
         "CURSEFORGE_ANTIFREECAM_ID",
         "CURSEFORGE_PROJECT_ID"
 ])
+def modrinthToken = gradleOrEnvProvider("modrinth_token", [
+        "MODRINTH_TOKEN",
+        "MODRINTH_API_KEY"
+])
+def modrinthProjectId = gradleOrEnvProvider("modrinth_project_id", [
+        "MODRINTH_ANTIFREECAM_ID",
+        "MODRINTH_PROJECT_ID"
+]).orElse("antifreecam-evolved")
 def curseforgeChangelog = providers.provider {
     def changelogFile = file("CHANGELOG.md")
     if (changelogFile.isFile()) {
@@ -123,6 +131,12 @@ publishMods {
         clientRequired = true
         serverRequired = true
     }
+
+    modrinth {
+        accessToken = modrinthToken.orElse("__missing_modrinth_token__")
+        projectId = modrinthProjectId
+        minecraftVersions.add(project.minecraft_version)
+    }
 }
 
 tasks.named("publishCurseforge").configure {
@@ -133,6 +147,14 @@ tasks.named("publishCurseforge").configure {
 
         if (!curseforgeProjectId.present) {
             throw new GradleException("CURSEFORGE_ANTIFREECAM_ID, CURSEFORGE_PROJECT_ID, or curseforge_project_id is required for CurseForge publishing.")
+        }
+    }
+}
+
+tasks.named("publishModrinth").configure {
+    doFirst {
+        if (!modrinthToken.present) {
+            throw new GradleException("MODRINTH_TOKEN, MODRINTH_API_KEY, or modrinth_token is required for Modrinth publishing.")
         }
     }
 }
