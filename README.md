@@ -63,3 +63,18 @@ This project is based on the original idea and functionality of Kesuaheli's `Ant
 ```powershell
 .\gradlew.bat build
 ```
+
+## Publish to CurseForge
+
+Set the local credentials before publishing:
+
+```env
+CURSEFORGE_TOKEN=your-token
+CURSEFORGE_ANTIFREECAM_ID=your-project-id
+```
+
+The project also accepts `CURSEFORGE_PROJECT_ID` or `curseforge_project_id` in `gradle.properties`. Keep tokens in the environment, `.env.local`, or your user Gradle properties.
+
+```powershell
+.\gradlew.bat publishCurseforge
+```
