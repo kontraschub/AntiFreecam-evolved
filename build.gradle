@@ -70,7 +70,7 @@ def modrinthToken = gradleOrEnvProvider("modrinth_token", [
 def modrinthProjectId = gradleOrEnvProvider("modrinth_project_id", [
         "MODRINTH_ANTIFREECAM_ID",
         "MODRINTH_PROJECT_ID"
-]).orElse("antifreecam-evolved")
+]).orElse("JMNKy9uH")
 def curseforgeChangelog = providers.provider {
     def changelogFile = file("CHANGELOG.md")
     if (changelogFile.isFile()) {
