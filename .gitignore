@@ -21,6 +21,7 @@ out/
 run/
 *.class
 *.jar
+!gradle/wrapper/gradle-wrapper.jar
 
 # Dependency folders
 node_modules/

@@ -28,17 +28,18 @@ This project is based on the original idea and functionality of Kesuaheli's `Ant
 - Git repository initialized.
 - Basic project files created.
 - Functionality and origin documented.
-- Fabric project scaffold created for Minecraft Java Edition 26.1.2.
+- Fabric project scaffold updated for Minecraft Java Edition 26.2 RC1 and RC2.
 - Core functionality from the old mod ported.
+- WI Freecam collision enforcement added.
 - Gradle build passes.
-- Next step: test behavior with Freecam 1.4.0-alpha.3 on client and server.
+- Freecam and WI Freecam integrations tested on the client.
 
 ## Target Platform
 
-- Minecraft Java Edition: 26.1.2
+- Minecraft Java Edition: 26.2 RC1 and RC2
 - Mod loader: Fabric
-- Fabric Loader: 0.19.2
-- Fabric API: 0.147.0+26.1.2
+- Fabric Loader: 0.19.3
+- Fabric API: 0.152.0+26.2
 - Java: 25 or newer
 
 ## Workflow
@@ -57,6 +58,8 @@ This project is based on the original idea and functionality of Kesuaheli's `Ant
 - Client-side storage of the server setting.
 - Integration with Freecam through a client mixin.
 - Enforcement of active block collisions in Freecam.
+- Enforcement of camera collisions in WI Freecam.
+- Automatic collision enforcement in singleplayer worlds.
 
 ## Build
 

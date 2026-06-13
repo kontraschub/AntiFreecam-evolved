@@ -87,6 +87,11 @@ def replaceProperties = [
         "fabric_api_version" : project.fabric_api_version,
 ]
 
+def supportedMinecraftVersions = project.minecraft_versions
+        .split(",")
+        .collect { it.trim() }
+        .findAll { !it.isEmpty() }
+
 processResources {
     inputs.properties(replaceProperties)
     filteringCharset "UTF-8"
@@ -126,7 +131,7 @@ publishMods {
     curseforge {
         accessToken = curseforgeToken.orElse("__missing_curseforge_token__")
         projectId = curseforgeProjectId.orElse("__missing_curseforge_project_id__")
-        minecraftVersions.add(project.minecraft_version)
+        minecraftVersions.addAll(supportedMinecraftVersions)
         javaVersions.add(JavaVersion.VERSION_25)
         clientRequired = true
         serverRequired = true
@@ -135,7 +140,7 @@ publishMods {
     modrinth {
         accessToken = modrinthToken.orElse("__missing_modrinth_token__")
         projectId = modrinthProjectId
-        minecraftVersions.add(project.minecraft_version)
+        minecraftVersions.addAll(supportedMinecraftVersions)
     }
 }
 
