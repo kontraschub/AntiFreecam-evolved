@@ -125,7 +125,7 @@ jar {
 publishMods {
     file = jar.archiveFile
     changelog = curseforgeChangelog
-    type = STABLE
+    type = BETA
     modLoaders.add("fabric")
 
     curseforge {
