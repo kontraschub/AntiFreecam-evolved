@@ -92,6 +92,11 @@ def supportedMinecraftVersions = project.minecraft_versions
         .collect { it.trim() }
         .findAll { !it.isEmpty() }
 
+def curseforgeMinecraftVersions = project.curseforge_minecraft_versions
+        .split(",")
+        .collect { it.trim() }
+        .findAll { !it.isEmpty() }
+
 processResources {
     inputs.properties(replaceProperties)
     filteringCharset "UTF-8"
@@ -131,7 +136,7 @@ publishMods {
     curseforge {
         accessToken = curseforgeToken.orElse("__missing_curseforge_token__")
         projectId = curseforgeProjectId.orElse("__missing_curseforge_project_id__")
-        minecraftVersions.addAll(supportedMinecraftVersions)
+        minecraftVersions.addAll(curseforgeMinecraftVersions)
         javaVersions.add(JavaVersion.VERSION_25)
         clientRequired = true
         serverRequired = true
