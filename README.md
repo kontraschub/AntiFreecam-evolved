@@ -28,7 +28,7 @@ This project is based on the original idea and functionality of Kesuaheli's `Ant
 - Git repository initialized.
 - Basic project files created.
 - Functionality and origin documented.
-- Fabric project scaffold updated for Minecraft Java Edition 26.2 RC1 and RC2.
+- Fabric project scaffold updated for Minecraft Java Edition 26.2.
 - Core functionality from the old mod ported.
 - WI Freecam collision enforcement added.
 - Gradle build passes.
@@ -36,10 +36,10 @@ This project is based on the original idea and functionality of Kesuaheli's `Ant
 
 ## Target Platform
 
-- Minecraft Java Edition: 26.2 RC1 and RC2
+- Minecraft Java Edition: 26.2
 - Mod loader: Fabric
 - Fabric Loader: 0.19.3
-- Fabric API: 0.152.0+26.2
+- Fabric API: 0.152.1+26.2
 - Java: 25 or newer
 
 ## Workflow
