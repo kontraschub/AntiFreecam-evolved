@@ -10,6 +10,7 @@ import java.util.Set;
 
 public class MixinPlugin implements IMixinConfigPlugin {
     private static final String FREECAM_MOD_CONFIG_MIXIN = "FreecamModConfigMixin";
+    private static final String FREECAM_MOD_CONFIG_IMPL_MIXIN = "FreecamModConfigImplMixin";
 
     @Override
     public void onLoad(String mixinPackage) {
@@ -23,7 +24,15 @@ public class MixinPlugin implements IMixinConfigPlugin {
 
     @Override
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
-        return !mixinClassName.endsWith("." + FREECAM_MOD_CONFIG_MIXIN) || FreecamIntegration.isFreecamPresent();
+        if (mixinClassName.endsWith("." + FREECAM_MOD_CONFIG_MIXIN)) {
+            return FreecamIntegration.isFreecamPresent() && !FreecamIntegration.hasModernFreecamConfig();
+        }
+
+        if (mixinClassName.endsWith("." + FREECAM_MOD_CONFIG_IMPL_MIXIN)) {
+            return FreecamIntegration.hasModernFreecamConfig();
+        }
+
+        return true;
     }
 
     @Override
@@ -36,7 +45,9 @@ public class MixinPlugin implements IMixinConfigPlugin {
             return List.of();
         }
 
-        return List.of(FREECAM_MOD_CONFIG_MIXIN);
+        return List.of(FreecamIntegration.hasModernFreecamConfig()
+                ? FREECAM_MOD_CONFIG_IMPL_MIXIN
+                : FREECAM_MOD_CONFIG_MIXIN);
     }
 
     @Override
@@ -47,4 +58,3 @@ public class MixinPlugin implements IMixinConfigPlugin {
     public void postApply(String targetClassName, ClassNode classNode, String mixinClassName, IMixinInfo mixinInfo) {
     }
 }
-
