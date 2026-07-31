@@ -6,6 +6,7 @@ import net.fabricmc.loader.api.FabricLoader;
 public final class FreecamIntegration {
     public static final String MOD_ID = "freecam";
     public static final String WI_FREECAM_MOD_ID = "wi_freecam";
+    private static final String MODERN_CONFIG_CLASS = "net/xolt/freecam/config/model/ModConfigImpl.class";
 
     private static boolean fetched;
     private static boolean freecamPresent;
@@ -50,5 +51,12 @@ public final class FreecamIntegration {
         }
 
         return wiFreecamPresent;
+    }
+
+    public static boolean hasModernFreecamConfig() {
+        return isFreecamPresent() && FabricLoader.getInstance()
+                .getModContainer(MOD_ID)
+                .flatMap(modContainer -> modContainer.findPath(MODERN_CONFIG_CLASS))
+                .isPresent();
     }
 }

@@ -12,6 +12,7 @@ import java.util.Set;
 
 public class MixinPlugin implements IMixinConfigPlugin {
     private static final String FREECAM_MOD_CONFIG_MIXIN = "FreecamModConfigMixin";
+    private static final String FREECAM_MOD_CONFIG_IMPL_MIXIN = "FreecamModConfigImplMixin";
     private static final String WI_FREECAM_MIXIN = "WiFreecamMixin";
 
     @Override
@@ -27,7 +28,11 @@ public class MixinPlugin implements IMixinConfigPlugin {
     @Override
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
         if (mixinClassName.endsWith("." + FREECAM_MOD_CONFIG_MIXIN)) {
-            return FreecamIntegration.isFreecamPresent();
+            return FreecamIntegration.isFreecamPresent() && !FreecamIntegration.hasModernFreecamConfig();
+        }
+
+        if (mixinClassName.endsWith("." + FREECAM_MOD_CONFIG_IMPL_MIXIN)) {
+            return FreecamIntegration.hasModernFreecamConfig();
         }
 
         if (mixinClassName.endsWith("." + WI_FREECAM_MIXIN)) {
@@ -46,7 +51,9 @@ public class MixinPlugin implements IMixinConfigPlugin {
         List<String> mixins = new ArrayList<>();
 
         if (FreecamIntegration.isFreecamPresent()) {
-            mixins.add(FREECAM_MOD_CONFIG_MIXIN);
+            mixins.add(FreecamIntegration.hasModernFreecamConfig()
+                    ? FREECAM_MOD_CONFIG_IMPL_MIXIN
+                    : FREECAM_MOD_CONFIG_MIXIN);
         }
 
         if (FreecamIntegration.isWiFreecamPresent()) {
@@ -62,6 +69,11 @@ public class MixinPlugin implements IMixinConfigPlugin {
 
     @Override
     public void postApply(String targetClassName, ClassNode classNode, String mixinClassName, IMixinInfo mixinInfo) {
+        if (mixinClassName.endsWith("." + FREECAM_MOD_CONFIG_MIXIN)
+                || mixinClassName.endsWith("." + FREECAM_MOD_CONFIG_IMPL_MIXIN)) {
+            AntiFreecam.LOGGER.info("Freecam collision integration applied.");
+        }
+
         if (mixinClassName.endsWith("." + WI_FREECAM_MIXIN)) {
             AntiFreecam.LOGGER.info("WI Freecam collision integration applied.");
         }
