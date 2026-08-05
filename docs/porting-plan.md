@@ -25,12 +25,12 @@ The old mod functionality is carried over to `AntiFreecam evolved` as closely as
 | Topic | Value |
 | --- | --- |
 | Game / application | Minecraft Java Edition |
-| Version | 26.2 |
+| Version | 26.3-snapshot-7 (`26.3-alpha.7` in Fabric Loader) |
 | Modding framework | Fabric |
 | Programming language | Java 25 |
 | Build system | Gradle with Fabric Loom |
 | Fabric Loader | 0.19.3 |
-| Fabric API | 0.152.1+26.2 |
+| Fabric API | 0.156.2+26.3 |
 
 ## Function Matrix
 
@@ -48,13 +48,13 @@ The old mod functionality is carried over to `AntiFreecam evolved` as closely as
 
 ## Open Points
 
-- Run a dedicated multiplayer runtime test with Minecraft 26.2.
+- Run a dedicated multiplayer runtime test with Minecraft 26.3-snapshot-7.
 - Decide whether the data generator from the old mod is still needed.
 
 ## Verification
 
 | Check | Result |
 | --- | --- |
-| Gradle build | passed against Minecraft 26.2 |
-| Artifact | `build/libs/antifreecam-evolved-1.1.0+mc26.2.jar` |
-| Runtime test | WI Freecam collision enforcement passed in singleplayer |
+| Gradle build | passed against Minecraft 26.3-snapshot-7 |
+| Artifact | `build/libs/antifreecam-evolved-1.1.3+mc26.3-snapshot-7.jar` |
+| Runtime test | passed with Minecraft 26.3-snapshot-7 |

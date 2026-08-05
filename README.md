@@ -28,7 +28,7 @@ This project is based on the original idea and functionality of Kesuaheli's `Ant
 - Git repository initialized.
 - Basic project files created.
 - Functionality and origin documented.
-- Fabric project scaffold updated for Minecraft Java Edition 26.2.
+- Fabric project scaffold updated for Minecraft Java Edition 26.3-snapshot-7.
 - Core functionality from the old mod ported.
 - WI Freecam collision enforcement added.
 - Gradle build passes.
@@ -36,10 +36,11 @@ This project is based on the original idea and functionality of Kesuaheli's `Ant
 
 ## Target Platform
 
-- Minecraft Java Edition: 26.2
+- Minecraft Java Edition: 26.3-snapshot-7
+- Fabric runtime version: 26.3-alpha.7
 - Mod loader: Fabric
 - Fabric Loader: 0.19.3
-- Fabric API: 0.152.1+26.2
+- Fabric API: 0.156.2+26.3
 - Java: 25 or newer
 
 ## Workflow
@@ -66,6 +67,8 @@ This project is based on the original idea and functionality of Kesuaheli's `Ant
 ```powershell
 .\gradlew.bat build
 ```
+
+Minecraft 26.3-snapshot-7 reports the runtime version `26.3-alpha.7` to Fabric Loader. The build artifact uses the snapshot name, while the mod dependency uses this runtime version.
 
 ## Publish to CurseForge
 

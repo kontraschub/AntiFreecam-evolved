@@ -81,10 +81,11 @@ def curseforgeChangelog = providers.provider {
 }
 
 def replaceProperties = [
-        "mod_version"        : project.mod_version,
-        "minecraft_version"  : project.minecraft_version,
-        "loader_version"     : project.loader_version,
-        "fabric_api_version" : project.fabric_api_version,
+        "mod_version"                  : project.mod_version,
+        "minecraft_version"            : project.minecraft_version,
+        "minecraft_dependency_version" : project.minecraft_dependency_version,
+        "loader_version"               : project.loader_version,
+        "fabric_api_version"            : project.fabric_api_version,
 ]
 
 def supportedMinecraftVersions = project.minecraft_versions
@@ -130,7 +131,7 @@ jar {
 publishMods {
     file = jar.archiveFile
     changelog = curseforgeChangelog
-    type = STABLE
+    type = BETA
     modLoaders.add("fabric")
 
     curseforge {
