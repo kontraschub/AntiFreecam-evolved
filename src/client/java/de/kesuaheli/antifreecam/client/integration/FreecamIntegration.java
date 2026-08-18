@@ -13,6 +13,7 @@ public final class FreecamIntegration {
     private static boolean wiFreecamPresent;
 
     public static boolean forceCollision;
+    public static boolean limitToRenderDistance;
 
     private FreecamIntegration() {
     }

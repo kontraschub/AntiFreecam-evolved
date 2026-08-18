@@ -59,7 +59,20 @@ This project is based on the original idea and functionality of Kesuaheli's `Ant
 - Integration with Freecam through a client mixin.
 - Enforcement of active block collisions in Freecam.
 - Enforcement of camera collisions in WI Freecam.
+- Optional enforcement that keeps Freecam and WI Freecam cameras inside the player's effective render distance.
 - Automatic collision enforcement in singleplayer worlds.
+
+## Configuration
+
+The dedicated server creates `config/antifreecam-evolved.json` on its first start:
+
+```json
+{
+  "limitFreecamToRenderDistance": false
+}
+```
+
+Set `limitFreecamToRenderDistance` to `true` and restart the server to keep supported Freecam cameras inside the chunk area around the player that is covered by the effective render distance. The option is disabled by default.
 
 ## Build
 
