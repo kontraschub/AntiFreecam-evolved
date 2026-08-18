@@ -2,6 +2,7 @@ package de.kesuaheli.antifreecam.client.mixin;
 
 import de.kesuaheli.antifreecam.AntiFreecam;
 import de.kesuaheli.antifreecam.client.integration.FreecamIntegration;
+import de.kesuaheli.antifreecam.client.integration.RenderDistanceLimiter;
 import net.minecraft.client.Minecraft;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.phys.AABB;
@@ -32,10 +33,18 @@ public class WiFreecamMixin {
             remap = false
     )
     private void antiFreecam$applyCollision(CallbackInfo ci) {
-        if (!FreecamIntegration.forceCollision || camPos == null || prevCamPos == null) {
+        if (camPos == null || prevCamPos == null) {
             return;
         }
 
+        if (FreecamIntegration.forceCollision) {
+            antiFreecam$applyBlockCollision();
+        }
+
+        camPos = RenderDistanceLimiter.limit(camPos);
+    }
+
+    private void antiFreecam$applyBlockCollision() {
         Vec3 movement = camPos.subtract(prevCamPos);
         if (movement.lengthSqr() == 0) {
             return;

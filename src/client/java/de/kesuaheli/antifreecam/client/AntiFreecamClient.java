@@ -2,7 +2,9 @@ package de.kesuaheli.antifreecam.client;
 
 import de.kesuaheli.antifreecam.AntiFreecam;
 import de.kesuaheli.antifreecam.client.integration.FreecamIntegration;
+import de.kesuaheli.antifreecam.client.integration.RenderDistanceLimiter;
 import de.kesuaheli.antifreecam.packet.FreecamConfigClientboundPayload;
+import de.kesuaheli.antifreecam.packet.FreecamRenderDistanceConfigClientboundPayload;
 import net.fabricmc.api.ClientModInitializer;
 import net.fabricmc.fabric.api.client.event.lifecycle.v1.ClientTickEvents;
 import net.fabricmc.fabric.api.client.networking.v1.ClientConfigurationNetworking;
@@ -18,18 +20,21 @@ public class AntiFreecamClient implements ClientModInitializer {
         ClientTickEvents.END_CLIENT_TICK.register(client -> {
             if (!client.hasSingleplayerServer()) {
                 singleplayerCollisionLogged = false;
-                return;
+            } else {
+                FreecamIntegration.forceCollision = true;
+                if (!singleplayerCollisionLogged) {
+                    singleplayerCollisionLogged = true;
+                    AntiFreecam.LOGGER.info("Singleplayer detected: force collisions true.");
+                }
             }
 
-            FreecamIntegration.forceCollision = true;
-            if (!singleplayerCollisionLogged) {
-                singleplayerCollisionLogged = true;
-                AntiFreecam.LOGGER.info("Singleplayer detected: force collisions true.");
-            }
+            RenderDistanceLimiter.enforceForFreecam(client);
         });
 
         ClientPlayConnectionEvents.DISCONNECT.register((handler, client) -> {
             FreecamIntegration.forceCollision = false;
+            FreecamIntegration.limitToRenderDistance = false;
+            RenderDistanceLimiter.resetLog();
             singleplayerCollisionLogged = false;
         });
 
@@ -42,5 +47,17 @@ public class AntiFreecamClient implements ClientModInitializer {
                     FreecamIntegration.isWiFreecamPresent()
             );
         });
+
+        ClientConfigurationNetworking.registerGlobalReceiver(
+                FreecamRenderDistanceConfigClientboundPayload.TYPE,
+                (payload, context) -> {
+                    FreecamIntegration.limitToRenderDistance = payload.enabled();
+                    RenderDistanceLimiter.resetLog();
+                    AntiFreecam.LOGGER.info(
+                            "Server config received: limit Freecam to render distance {}.",
+                            payload.enabled()
+                    );
+                }
+        );
     }
 }
