@@ -43,7 +43,7 @@
     "fabric-api": "*"
   },
   "suggests": {
-    "freecam": ">=1.4.0-alpha.3",
+    "freecam": ">=1.5.0-alpha.0",
     "wi_freecam": ">=1.1"
   }
 }

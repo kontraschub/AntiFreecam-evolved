@@ -25,23 +25,23 @@ This project is based on the original idea and functionality of Kesuaheli's `Ant
 
 ## Status
 
-- Git repository initialized.
-- Basic project files created.
-- Functionality and origin documented.
-- Fabric project scaffold updated for Minecraft Java Edition 26.3-snapshot-7.
-- Core functionality from the old mod ported.
-- WI Freecam collision enforcement added.
-- Gradle build passes.
-- Freecam and WI Freecam integrations tested on the client.
+- Release build: `1.2.1+mc26.3`.
+- Updated for the final Minecraft Java Edition 26.3 release.
+- Freecam 1.5.0-alpha.0 uses the supported `ModConfigImpl.ignoreCollisionWith` integration.
+- Gradle build and client startup pass. A runtime smoke test verifies collision enforcement for stone, glass, and bedrock, including restoration after enforcement is reset.
+- Existing server handshake, singleplayer collision enforcement, and optional render-distance limit retained.
+- Dedicated-server initialization and default configuration creation pass. An in-world multiplayer test is still outstanding.
+- WI Freecam integration retained; runtime compatibility with a WI Freecam build for 26.3 has not been verified.
 
 ## Target Platform
 
-- Minecraft Java Edition: 26.3-snapshot-7
-- Fabric runtime version: 26.3-alpha.7
+- Minecraft Java Edition: 26.3
 - Mod loader: Fabric
-- Fabric Loader: 0.19.3
-- Fabric API: 0.156.2+26.3
+- Fabric Loader: 0.19.5 or newer
+- Fabric API: 0.160.5+26.3
+- Freecam: 1.5.0-alpha.0 for Minecraft 26.3 (optional)
 - Java: 25 or newer
+- Build tools: Gradle 9.5.0 and Fabric Loom 1.17.21
 
 ## Workflow
 
@@ -81,7 +81,9 @@ Set `limitFreecamToRenderDistance` to `true` and restart the server to keep supp
 .\gradlew.bat build
 ```
 
-Minecraft 26.3-snapshot-7 reports the runtime version `26.3-alpha.7` to Fabric Loader. The build artifact uses the snapshot name, while the mod dependency uses this runtime version.
+The installable artifact is `build/libs/antifreecam-evolved-1.2.1+mc26.3.jar`. Install it on the server and all connecting clients, together with Fabric API for Minecraft 26.3. Install Freecam separately on clients that need it. Do not install the `-sources.jar` file.
+
+This build targets the final 26.3 release. It does not accept the earlier 26.3 snapshots or release candidates.
 
 ## Publish to CurseForge
 

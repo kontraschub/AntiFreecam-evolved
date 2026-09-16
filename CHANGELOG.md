@@ -1,4 +1,13 @@
-# AntiFreecam evolved 1.2.0
+# AntiFreecam evolved 1.2.1+mc26.3
+
+- Target the final Minecraft Java Edition 26.3 release.
+- Update Fabric Loader to 0.19.5 and Fabric API to 0.160.5+26.3.
+- Update Fabric Loom to 1.17.21 and the Gradle wrapper to 9.5.0, with distribution checksum verification.
+- Keep the collision integration compatible with Freecam 1.5.0-alpha.0 for Minecraft 26.3.
+- Configure release publishing for Minecraft 26.3 on Modrinth and CurseForge.
+- Retain singleplayer collision enforcement, the dedicated-server handshake, and the optional render-distance limit introduced in 1.2.0.
+
+## Previous 1.2.0 snapshot changes
 
 - Add an optional server-configured limit that keeps Freecam and WI Freecam cameras inside the player's effective render distance.
 - Add automatic generation of `config/antifreecam-evolved.json` with the render-distance limit disabled by default.
