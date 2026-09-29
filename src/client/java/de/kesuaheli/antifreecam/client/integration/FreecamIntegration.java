@@ -5,11 +5,16 @@ import net.fabricmc.loader.api.FabricLoader;
 
 public final class FreecamIntegration {
     public static final String MOD_ID = "freecam";
+    public static final String WI_FREECAM_MOD_ID = "wi_freecam";
+    private static final String MODERN_CONFIG_CLASS = "net/xolt/freecam/config/model/ModConfigImpl.class";
+    private static final String LEGACY_COLLISION_CLASS = "net/xolt/freecam/config/CollisionBehavior.class";
 
     private static boolean fetched;
     private static boolean freecamPresent;
+    private static boolean wiFreecamPresent;
 
     public static boolean forceCollision;
+    public static boolean limitToRenderDistance;
 
     private FreecamIntegration() {
     }
@@ -20,20 +25,48 @@ public final class FreecamIntegration {
         } else {
             AntiFreecam.LOGGER.info("Freecam mod not installed on client.");
         }
+
+        if (isWiFreecamPresent()) {
+            AntiFreecam.LOGGER.info("WI Freecam mod installed on client.");
+        } else {
+            AntiFreecam.LOGGER.info("WI Freecam mod not installed on client.");
+        }
     }
 
-    public static boolean fetchFreecam() {
+    public static void fetchFreecams() {
         freecamPresent = FabricLoader.getInstance().isModLoaded(MOD_ID);
+        wiFreecamPresent = FabricLoader.getInstance().isModLoaded(WI_FREECAM_MOD_ID);
         fetched = true;
-        return freecamPresent;
     }
 
     public static boolean isFreecamPresent() {
         if (!fetched) {
-            return fetchFreecam();
+            fetchFreecams();
         }
 
         return freecamPresent;
     }
-}
 
+    public static boolean isWiFreecamPresent() {
+        if (!fetched) {
+            fetchFreecams();
+        }
+
+        return wiFreecamPresent;
+    }
+
+    public static boolean hasModernFreecamConfig() {
+        return hasFreecamClass(MODERN_CONFIG_CLASS);
+    }
+
+    public static boolean hasLegacyCollisionBehavior() {
+        return hasFreecamClass(LEGACY_COLLISION_CLASS);
+    }
+
+    private static boolean hasFreecamClass(String classPath) {
+        return isFreecamPresent() && FabricLoader.getInstance()
+                .getModContainer(MOD_ID)
+                .flatMap(modContainer -> modContainer.findPath(classPath))
+                .isPresent();
+    }
+}

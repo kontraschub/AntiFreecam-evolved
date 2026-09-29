@@ -25,21 +25,21 @@ This project is based on the original idea and functionality of Kesuaheli's `Ant
 
 ## Status
 
-- Git repository initialized.
-- Basic project files created.
-- Functionality and origin documented.
-- Fabric project scaffold created for Minecraft Java Edition 26.1.2.
-- Core functionality from the old mod ported.
-- Gradle build passes.
-- Next step: test behavior with Freecam 1.4.0-alpha.3 on client and server.
+- Fabric port created for Minecraft Java Edition 1.21.1.
+- Gradle build passes with Java 21.
+- Client startup with Freecam 1.3.0 was verified and the collision mixin applied.
+- Client startup was verified with Fabric Loader 0.19.3 and 0.19.5.
+- Dedicated server initialization and default configuration creation were verified.
+- In-game camera movement and multiplayer behavior still require manual verification.
 
 ## Target Platform
 
-- Minecraft Java Edition: 26.1.2
+- Minecraft Java Edition: 1.21.1
 - Mod loader: Fabric
-- Fabric Loader: 0.19.2
-- Fabric API: 0.147.0+26.1.2
-- Java: 25 or newer
+- Fabric Loader: 0.19.3 or newer, including 0.19.5
+- Fabric API: 0.116.17+1.21.1
+- Java: 21 or newer
+- Freecam integration: Freecam 1.3.0 for Minecraft 1.21.1
 
 ## Workflow
 
@@ -57,12 +57,29 @@ This project is based on the original idea and functionality of Kesuaheli's `Ant
 - Client-side storage of the server setting.
 - Integration with Freecam through a client mixin.
 - Enforcement of active block collisions in Freecam.
+- Enforcement of camera collisions in WI Freecam.
+- Optional enforcement that keeps Freecam and WI Freecam cameras inside the player's effective render distance.
+- Automatic collision enforcement in singleplayer worlds.
+
+## Configuration
+
+The dedicated server creates `config/antifreecam-evolved.json` on its first start:
+
+```json
+{
+  "limitFreecamToRenderDistance": false
+}
+```
+
+Set `limitFreecamToRenderDistance` to `true` and restart the server to keep supported Freecam cameras inside the chunk area around the player that is covered by the effective render distance. The option is disabled by default.
 
 ## Build
 
 ```powershell
 .\gradlew.bat build
 ```
+
+The distributable mod is `build/libs/antifreecam-evolved-1.2.1+mc1.21.1.jar`.
 
 ## Publish to CurseForge
 

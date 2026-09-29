@@ -1,6 +1,7 @@
 package de.kesuaheli.antifreecam;
 
 import de.kesuaheli.antifreecam.packet.FreecamConfigClientboundPayload;
+import de.kesuaheli.antifreecam.packet.FreecamRenderDistanceConfigClientboundPayload;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.networking.v1.PayloadTypeRegistry;
 import org.slf4j.Logger;
@@ -12,9 +13,13 @@ public class AntiFreecam implements ModInitializer {
 
     @Override
     public void onInitialize() {
-        PayloadTypeRegistry.clientboundConfiguration().register(
+        PayloadTypeRegistry.configurationS2C().register(
                 FreecamConfigClientboundPayload.TYPE,
                 FreecamConfigClientboundPayload.STREAM_CODEC
+        );
+        PayloadTypeRegistry.configurationS2C().register(
+                FreecamRenderDistanceConfigClientboundPayload.TYPE,
+                FreecamRenderDistanceConfigClientboundPayload.STREAM_CODEC
         );
     }
 }
