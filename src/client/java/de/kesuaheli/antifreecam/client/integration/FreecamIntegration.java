@@ -19,6 +19,7 @@ public final class FreecamIntegration {
     }
 
     public static void enable() {
+        AntiFreecam.LOGGER.info("Camera Tweaks installed on client: {}.", isCameraTweaksPresent());
         if (isFreecamPresent()) {
             AntiFreecam.LOGGER.info("Freecam mod installed on client.");
         } else {
@@ -52,6 +53,10 @@ public final class FreecamIntegration {
         }
 
         return wiFreecamPresent;
+    }
+
+    public static boolean isCameraTweaksPresent() {
+        return FabricLoader.getInstance().isModLoaded("cameratweaks");
     }
 
     public static boolean hasModernFreecamConfig() {
