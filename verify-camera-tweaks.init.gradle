@@ -1,0 +1,34 @@
+// Run with: gradlew.bat -I verify-camera-tweaks.init.gradle runClient
+// Add -PwithoutCameraTweaks to verify the optional-mod startup path.
+allprojects {
+    afterEvaluate {
+        dependencies {
+            clientImplementation 'net.fabricmc.fabric-api:fabric-client-gametest-api-v1:5.0.16+cef2a4834c'
+            if (!project.hasProperty('withoutCameraTweaks')) {
+                clientRuntimeOnly('maven.modrinth:cameratweaks:1.11.2-26.1') { transitive = false }
+                clientRuntimeOnly('maven.modrinth:yacl:3.9.7+26.1-fabric') { transitive = false }
+            }
+        }
+        def compileVerification = tasks.register('compileCameraVerification', JavaCompile) {
+            dependsOn tasks.named('clientClasses')
+            source = fileTree('src/verification/java')
+            classpath = sourceSets.client.compileClasspath + sourceSets.client.output + sourceSets.main.output
+            destinationDirectory = layout.buildDirectory.dir('camera-verification/classes')
+        }
+        def verificationJar = tasks.register('cameraVerificationJar', Jar) {
+            dependsOn compileVerification
+            archiveFileName = 'camera-verification.jar'
+            destinationDirectory = layout.buildDirectory.dir('camera-verification')
+            from compileVerification.flatMap { it.destinationDirectory }
+            from 'src/verification/resources'
+        }
+        loom.runs.client.runDir('build/camera-verification/run' + (project.hasProperty('withoutCameraTweaks') ? '-without' : ''))
+        tasks.named('runClient') {
+            dependsOn verificationJar
+            jvmArgs '-Dfabric.client.gametest', '-Dfabric.client.gametest.disableJoinAsyncStackTraces=true'
+            // Bound optional hardware diagnostics on Windows machines with broken WMI counters.
+            jvmArgs '-Doshi.util.wmi.timeout=1000'
+            jvmArgs "-Dfabric.addMods=${verificationJar.get().archiveFile.get().asFile.absolutePath}"
+        }
+    }
+}

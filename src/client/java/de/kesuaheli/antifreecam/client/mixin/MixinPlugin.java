@@ -5,10 +5,12 @@ import org.objectweb.asm.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
 public class MixinPlugin implements IMixinConfigPlugin {
+    private static final String CAMERA_TWEAKS_MIXIN = "CameraTweaksFreecamMixin";
     private static final String FREECAM_MOD_CONFIG_MIXIN = "FreecamModConfigMixin";
     private static final String FREECAM_MOD_CONFIG_IMPL_MIXIN = "FreecamModConfigImplMixin";
 
@@ -24,6 +26,9 @@ public class MixinPlugin implements IMixinConfigPlugin {
 
     @Override
     public boolean shouldApplyMixin(String targetClassName, String mixinClassName) {
+        if (mixinClassName.endsWith("." + CAMERA_TWEAKS_MIXIN)) {
+            return FreecamIntegration.isCameraTweaksPresent();
+        }
         if (mixinClassName.endsWith("." + FREECAM_MOD_CONFIG_MIXIN)) {
             return FreecamIntegration.isFreecamPresent() && !FreecamIntegration.hasModernFreecamConfig();
         }
@@ -41,13 +46,15 @@ public class MixinPlugin implements IMixinConfigPlugin {
 
     @Override
     public List<String> getMixins() {
-        if (!FreecamIntegration.isFreecamPresent()) {
-            return List.of();
+        List<String> mixins = new ArrayList<>();
+        if (FreecamIntegration.isCameraTweaksPresent()) {
+            mixins.add(CAMERA_TWEAKS_MIXIN);
         }
-
-        return List.of(FreecamIntegration.hasModernFreecamConfig()
-                ? FREECAM_MOD_CONFIG_IMPL_MIXIN
-                : FREECAM_MOD_CONFIG_MIXIN);
+        if (FreecamIntegration.isFreecamPresent()) {
+            mixins.add(FreecamIntegration.hasModernFreecamConfig()
+                    ? FREECAM_MOD_CONFIG_IMPL_MIXIN : FREECAM_MOD_CONFIG_MIXIN);
+        }
+        return mixins;
     }
 
     @Override

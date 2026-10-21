@@ -32,9 +32,12 @@ loom {
 }
 
 repositories {
+    maven { url = 'https://api.modrinth.com/maven'; content { includeGroup 'maven.modrinth' } }
 }
 
 dependencies {
+    // Optional Camera Tweaks integration; never bundled in the release jar.
+    compileOnly('maven.modrinth:cameratweaks:1.11.2-26.1') { transitive = false }
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
     implementation "net.fabricmc:fabric-loader:${project.loader_version}"
     implementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_api_version}"
@@ -74,7 +77,7 @@ def modrinthProjectId = gradleOrEnvProvider("modrinth_project_id", [
 def curseforgeChangelog = providers.provider {
     def changelogFile = file("CHANGELOG.md")
     if (changelogFile.isFile()) {
-        return changelogFile.getText("UTF-8")
+        return changelogFile.getText("UTF-8").split(/\r?\n(?:# |## Previous )/, 2)[0].trim()
     }
 
     return "Release ${project.version} for Minecraft ${project.minecraft_version}."
@@ -118,12 +121,15 @@ jar {
 }
 
 publishMods {
+    version = project.mod_version
+    displayName = "AntiFreecam evolved " + project.mod_version
     file = jar.archiveFile
     changelog = curseforgeChangelog
     type = STABLE
     modLoaders.add("fabric")
 
     curseforge {
+        requires('fabric-api')
         accessToken = curseforgeToken.orElse("__missing_curseforge_token__")
         projectId = curseforgeProjectId.orElse("__missing_curseforge_project_id__")
         minecraftVersions.add(project.minecraft_version)
@@ -133,6 +139,7 @@ publishMods {
     }
 
     modrinth {
+        requires('fabric-api')
         accessToken = modrinthToken.orElse("__missing_modrinth_token__")
         projectId = modrinthProjectId
         minecraftVersions.add(project.minecraft_version)
@@ -168,5 +175,6 @@ publishing {
     }
 
     repositories {
+    maven { url = 'https://api.modrinth.com/maven'; content { includeGroup 'maven.modrinth' } }
     }
 }
