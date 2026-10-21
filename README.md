@@ -1,4 +1,10 @@
-# AntiFreecam evolved
+# AntiFreecam evolved 1.2.2+mc1.21.1
+
+Camera Tweaks collision integration added for movement, activation, and saved cameras. Apply the existing optional render-distance limit to Camera Tweaks.
+
+Install `build/libs/antifreecam-evolved-1.2.2+mc1.21.1.jar` on the client and server. Camera Tweaks remains optional and is not bundled.
+
+## Overview
 
 `AntiFreecam evolved` is a Fabric mod for Minecraft servers that forces Freecam clients to keep block collisions enabled when the server requires it.
 
@@ -79,7 +85,7 @@ Set `limitFreecamToRenderDistance` to `true` and restart the server to keep supp
 .\gradlew.bat build
 ```
 
-The distributable mod is `build/libs/antifreecam-evolved-1.2.1+mc1.21.1.jar`.
+The distributable mod is `build/libs/antifreecam-evolved-1.2.2+mc1.21.1.jar`.
 
 ## Publish to CurseForge
 
@@ -95,3 +101,16 @@ The project also accepts `CURSEFORGE_PROJECT_ID` or `curseforge_project_id` in `
 ```powershell
 .\gradlew.bat publishCurseforge
 ```
+
+## Camera Tweaks verification
+
+Build, automated in-world collision tests, and client startup without Camera Tweaks verified.
+
+The test creates an isolated world and checks collisions, activation, saved cameras, and enforcement reset.
+
+```powershell
+.\gradlew.bat -I verify-camera-tweaks.init.gradle runClient
+.\gradlew.bat -I verify-camera-tweaks.init.gradle -PwithoutCameraTweaks runClient
+```
+
+Test dependencies and verification classes are not bundled in the release jar.

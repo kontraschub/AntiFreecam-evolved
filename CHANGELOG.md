@@ -1,3 +1,10 @@
+# AntiFreecam evolved 1.2.2+mc1.21.1
+
+- Add optional Camera Tweaks integration (1.7.1-1.21.1 API).
+- Enforce collisions during camera movement, activation, and saved-camera loading.
+- Prevent saved-camera interpolation from bypassing collision checks.
+- Apply the existing optional render-distance limit to Camera Tweaks.
+
 # AntiFreecam evolved 1.2.1 for Minecraft 1.21.1
 
 - Add a Minecraft 1.21.1 Fabric release with Freecam 1.3.0 collision support.

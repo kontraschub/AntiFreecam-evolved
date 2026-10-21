@@ -32,9 +32,12 @@ loom {
 }
 
 repositories {
+    maven { url = 'https://api.modrinth.com/maven'; content { includeGroup 'maven.modrinth' } }
 }
 
 dependencies {
+    // Optional Camera Tweaks integration; never bundled in the release jar.
+    modCompileOnly('maven.modrinth:cameratweaks:1.7.1-1.21.1') { transitive = false }
     minecraft "com.mojang:minecraft:${project.minecraft_version}"
     mappings loom.officialMojangMappings()
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
@@ -75,9 +78,7 @@ def modrinthProjectId = gradleOrEnvProvider("modrinth_project_id", [
 def curseforgeChangelog = providers.provider {
     def changelogFile = file("CHANGELOG.md")
     if (changelogFile.isFile()) {
-        def changelog = changelogFile.getText("UTF-8")
-        def nextEntry = changelog.indexOf("\n# ", 1)
-        return (nextEntry >= 0 ? changelog.substring(0, nextEntry) : changelog).trim()
+        return changelogFile.getText("UTF-8").split(/\r?\n(?:# |## Previous )/, 2)[0].trim()
     }
 
     return "Release ${project.version} for Minecraft ${project.minecraft_version}."
@@ -132,12 +133,15 @@ jar {
 }
 
 publishMods {
+    version = project.mod_version
+    displayName = "AntiFreecam evolved " + project.mod_version
     file = remapJar.archiveFile
     changelog = curseforgeChangelog
     type = STABLE
     modLoaders.add("fabric")
 
     curseforge {
+        requires('fabric-api')
         accessToken = curseforgeToken.orElse("__missing_curseforge_token__")
         projectId = curseforgeProjectId.orElse("__missing_curseforge_project_id__")
         minecraftVersions.addAll(curseforgeMinecraftVersions)
@@ -147,6 +151,7 @@ publishMods {
     }
 
     modrinth {
+        requires('fabric-api')
         accessToken = modrinthToken.orElse("__missing_modrinth_token__")
         projectId = modrinthProjectId
         minecraftVersions.addAll(supportedMinecraftVersions)
@@ -182,5 +187,6 @@ publishing {
     }
 
     repositories {
+    maven { url = 'https://api.modrinth.com/maven'; content { includeGroup 'maven.modrinth' } }
     }
 }

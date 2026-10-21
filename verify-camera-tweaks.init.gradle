@@ -1,0 +1,39 @@
+// Run with: gradlew.bat -I verify-camera-tweaks.init.gradle runClient
+// Add -PwithoutCameraTweaks to verify the optional-mod startup path.
+allprojects {
+    afterEvaluate {
+        configurations.create('cameraVerificationLibraries')
+        dependencies {
+            if (!project.hasProperty('withoutCameraTweaks')) {
+                modRuntimeOnly('maven.modrinth:cameratweaks:1.7.1-1.21.1') { transitive = false }
+                modRuntimeOnly('maven.modrinth:yacl:3.6.6+1.21.1-fabric') { transitive = false }
+                cameraVerificationLibraries('maven.modrinth:yacl:3.6.6+1.21.1-fabric') { transitive = false }
+                // Loom 1.11 strips nested library jars while remapping development mods.
+                clientRuntimeOnly files(providers.provider {
+                    zipTree(configurations.cameraVerificationLibraries.singleFile)
+                            .matching { include 'META-INF/jars/*.jar' }.files
+                })
+            }
+        }
+        def compileVerification = tasks.register('compileCameraVerification', JavaCompile) {
+            dependsOn tasks.named('clientClasses')
+            source = fileTree('src/verification/java')
+            classpath = sourceSets.client.compileClasspath + sourceSets.client.output + sourceSets.main.output
+            destinationDirectory = layout.buildDirectory.dir('camera-verification/classes')
+        }
+        def verificationJar = tasks.register('cameraVerificationJar', Jar) {
+            dependsOn compileVerification
+            archiveFileName = 'camera-verification.jar'
+            destinationDirectory = layout.buildDirectory.dir('camera-verification')
+            from compileVerification.flatMap { it.destinationDirectory }
+            from 'src/verification/resources'
+        }
+        loom.runs.client.runDir('build/camera-verification/run' + (project.hasProperty('withoutCameraTweaks') ? '-without' : ''))
+        tasks.named('runClient') {
+            dependsOn verificationJar
+            // Bound optional hardware diagnostics on Windows machines with broken WMI counters.
+            jvmArgs '-Doshi.util.wmi.timeout=1000'
+            jvmArgs "-Dfabric.addMods=${verificationJar.get().archiveFile.get().asFile.absolutePath}"
+        }
+    }
+}
