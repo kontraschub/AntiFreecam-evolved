@@ -6,11 +6,13 @@ import net.fabricmc.loader.api.FabricLoader;
 public final class FreecamIntegration {
     public static final String MOD_ID = "freecam";
     public static final String WI_FREECAM_MOD_ID = "wi_freecam";
+    public static final String CAMERA_TWEAKS_MOD_ID = "cameratweaks";
     private static final String MODERN_CONFIG_CLASS = "net/xolt/freecam/config/model/ModConfigImpl.class";
 
     private static boolean fetched;
     private static boolean freecamPresent;
     private static boolean wiFreecamPresent;
+    private static boolean cameraTweaksPresent;
 
     public static boolean forceCollision;
     public static boolean limitToRenderDistance;
@@ -19,6 +21,7 @@ public final class FreecamIntegration {
     }
 
     public static void enable() {
+        AntiFreecam.LOGGER.info("Camera Tweaks installed on client: {}.", isCameraTweaksPresent());
         if (isFreecamPresent()) {
             AntiFreecam.LOGGER.info("Freecam mod installed on client.");
         } else {
@@ -35,6 +38,7 @@ public final class FreecamIntegration {
     public static void fetchFreecams() {
         freecamPresent = FabricLoader.getInstance().isModLoaded(MOD_ID);
         wiFreecamPresent = FabricLoader.getInstance().isModLoaded(WI_FREECAM_MOD_ID);
+        cameraTweaksPresent = FabricLoader.getInstance().isModLoaded(CAMERA_TWEAKS_MOD_ID);
         fetched = true;
     }
 
@@ -52,6 +56,13 @@ public final class FreecamIntegration {
         }
 
         return wiFreecamPresent;
+    }
+
+    public static boolean isCameraTweaksPresent() {
+        if (!fetched) {
+            fetchFreecams();
+        }
+        return cameraTweaksPresent;
     }
 
     public static boolean hasModernFreecamConfig() {

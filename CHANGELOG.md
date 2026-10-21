@@ -1,4 +1,12 @@
-# AntiFreecam evolved 1.2.1+mc26.3
+# AntiFreecam evolved 1.2.2+mc26.3
+
+- Add optional Camera Tweaks 1.11.2 integration for Minecraft 26.3.
+- Enforce block collisions during freecam movement, activation, and loading saved cameras.
+- Correct both interpolation endpoints when a saved camera is blocked.
+- Apply the configured render-distance limit to Camera Tweaks.
+- Add an opt-in client game test and a startup check without Camera Tweaks.
+
+## Previous 1.2.1 changes
 
 - Target the final Minecraft Java Edition 26.3 release.
 - Update Fabric Loader to 0.19.5 and Fabric API to 0.160.5+26.3.
