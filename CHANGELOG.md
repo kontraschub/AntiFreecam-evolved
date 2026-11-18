@@ -1,3 +1,9 @@
+# AntiFreecam evolved 1.2.3+mc26.1.2
+
+- Add collision enforcement for Yannis' FreeCam during flight, tripod recalls, and in F6 follow mode.
+- Prevent older FreeCam releases from hiding obstructions while collision enforcement is active.
+- Bound collision checks for long camera jumps to 512 blocks per request.
+
 # AntiFreecam evolved 1.2.2+mc26.1.2
 
 - Require Fabric Loader 0.19.5 for current YACL/MixinExtras compatibility.
