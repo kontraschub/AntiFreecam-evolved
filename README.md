@@ -1,8 +1,8 @@
-# AntiFreecam evolved 1.2.2+mc26.2
+# AntiFreecam evolved 1.2.3+mc26.2
 
 Camera Tweaks collision integration added for movement, activation, and saved cameras. Apply the existing optional render-distance limit to Camera Tweaks.
 
-Install `build/libs/antifreecam-evolved-1.2.2+mc26.2.jar` on the client and server. Camera Tweaks remains optional and is not bundled. Fabric Loader 0.19.5 or newer is required for compatibility with current YACL/MixinExtras.
+Install `build/libs/antifreecam-evolved-1.2.3+mc26.2.jar` on the client and server. Camera Tweaks remains optional and is not bundled. Fabric Loader 0.19.5 or newer is required for compatibility with current YACL/MixinExtras.
 
 ## Overview
 
