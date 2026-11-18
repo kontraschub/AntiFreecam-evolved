@@ -12,6 +12,8 @@ The mod is derived from Kesuaheli's `AntiFreecam` and ports the functionality to
 
 ## Functionality
 
+The optional [FreeCam by Yannis_](https://modrinth.com/mod/freecam_yannis_) integration enforces block collisions during flight, when recalling tripod positions, and in F6 follow-camera mode. It also applies the server's optional render-distance limit.
+
 Freecam mods allow players to move the camera independently from the player body. This is useful for screenshots, building, and administration, but it can be problematic on servers when players use it to look into or move through areas that are normally limited by block collisions.
 
 `AntiFreecam evolved` addresses that specific behavior:
