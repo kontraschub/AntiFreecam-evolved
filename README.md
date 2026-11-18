@@ -12,6 +12,8 @@ The mod is derived from Kesuaheli's `AntiFreecam` and ports the functionality to
 
 ## Functionality
 
+The optional [FreeCam by Yannis_](https://modrinth.com/mod/freecam_yannis_) integration handles flight collisions, tripod positions, the F6 follow camera, and the server's optional render-distance limit. It targets the xcam classes found in neighboring builds. There is no published Yannis_ Fabric build for Minecraft 1.21.1 to verify against.
+
 Freecam mods allow players to move the camera independently from the player body. This is useful for screenshots, building, and administration, but it can be problematic on servers when players use it to look into or move through areas that are normally limited by block collisions.
 
 `AntiFreecam evolved` addresses that specific behavior:

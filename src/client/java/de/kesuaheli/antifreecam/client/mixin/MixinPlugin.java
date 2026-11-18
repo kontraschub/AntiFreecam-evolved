@@ -60,6 +60,12 @@ public class MixinPlugin implements IMixinConfigPlugin {
     @Override
     public List<String> getMixins() {
         List<String> mixins = new ArrayList<>();
+        if (FreecamIntegration.isYannisFreecamPresent()) {
+            mixins.add("YannisFreecamConfigMixin");
+            mixins.add("YannisFreecamMixin");
+            mixins.add("YannisFreecamAccess");
+            mixins.add("YannisFollowCameraMixin");
+        }
         if (FreecamIntegration.isCameraTweaksPresent()) {
             mixins.add(CAMERA_TWEAKS_MIXIN);
         }

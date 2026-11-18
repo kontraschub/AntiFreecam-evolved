@@ -8,9 +8,11 @@ public final class FreecamIntegration {
     public static final String WI_FREECAM_MOD_ID = "wi_freecam";
     private static final String MODERN_CONFIG_CLASS = "net/xolt/freecam/config/model/ModConfigImpl.class";
     private static final String LEGACY_COLLISION_CLASS = "net/xolt/freecam/config/CollisionBehavior.class";
+    private static final String YANNIS_CAMERA_CLASS = "net/xolt/xcam/util/XCamera.class";
 
     private static boolean fetched;
     private static boolean freecamPresent;
+    private static boolean yannisFreecamPresent;
     private static boolean wiFreecamPresent;
 
     public static boolean forceCollision;
@@ -20,6 +22,7 @@ public final class FreecamIntegration {
     }
 
     public static void enable() {
+        AntiFreecam.LOGGER.info("Yannis' FreeCam installed on client: {}.", isYannisFreecamPresent());
         AntiFreecam.LOGGER.info("Camera Tweaks installed on client: {}.", isCameraTweaksPresent());
         if (isFreecamPresent()) {
             AntiFreecam.LOGGER.info("Freecam mod installed on client.");
@@ -35,8 +38,12 @@ public final class FreecamIntegration {
     }
 
     public static void fetchFreecams() {
-        freecamPresent = FabricLoader.getInstance().isModLoaded(MOD_ID);
-        wiFreecamPresent = FabricLoader.getInstance().isModLoaded(WI_FREECAM_MOD_ID);
+        FabricLoader loader = FabricLoader.getInstance();
+        yannisFreecamPresent = loader.getModContainer(MOD_ID)
+                .flatMap(mod -> mod.findPath(YANNIS_CAMERA_CLASS))
+                .isPresent();
+        freecamPresent = loader.isModLoaded(MOD_ID) && !yannisFreecamPresent;
+        wiFreecamPresent = loader.isModLoaded(WI_FREECAM_MOD_ID);
         fetched = true;
     }
 
@@ -54,6 +61,13 @@ public final class FreecamIntegration {
         }
 
         return wiFreecamPresent;
+    }
+
+    public static boolean isYannisFreecamPresent() {
+        if (!fetched) {
+            fetchFreecams();
+        }
+        return yannisFreecamPresent;
     }
 
     public static boolean isCameraTweaksPresent() {
