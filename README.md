@@ -27,7 +27,7 @@ This project is based on the original idea and functionality of Kesuaheli's `Ant
 
 ## Status
 
-- Release build: `1.2.2+mc26.3`.
+- Release build: `1.2.3+mc26.3`.
 - Camera Tweaks 1.11.2 integration covers freecam movement, activation, saved cameras, and the optional render-distance limit.
 - Automated in-world Camera Tweaks tests and client startup without Camera Tweaks pass.
 - Updated for the final Minecraft Java Edition 26.3 release.
@@ -86,7 +86,7 @@ Set `limitFreecamToRenderDistance` to `true` and restart the server to keep supp
 .\gradlew.bat build
 ```
 
-The installable artifact is `build/libs/antifreecam-evolved-1.2.2+mc26.3.jar`. Install it on the server and all connecting clients, together with Fabric API for Minecraft 26.3. Install Freecam or Camera Tweaks separately on clients that need it. Do not install the `-sources.jar` file.
+The installable artifact is `build/libs/antifreecam-evolved-1.2.3+mc26.3.jar`. Install it on the server and all connecting clients, together with Fabric API for Minecraft 26.3. Install Freecam or Camera Tweaks separately on clients that need it. Do not install the `-sources.jar` file.
 
 ## Camera Tweaks verification
 
