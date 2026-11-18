@@ -1,8 +1,8 @@
-# AntiFreecam evolved 1.2.2+mc1.21.1
+# AntiFreecam evolved 1.2.3+mc1.21.1
 
 Camera Tweaks collision integration added for movement, activation, and saved cameras. Apply the existing optional render-distance limit to Camera Tweaks.
 
-Install `build/libs/antifreecam-evolved-1.2.2+mc1.21.1.jar` on the client and server. Camera Tweaks remains optional and is not bundled.
+Install `build/libs/antifreecam-evolved-1.2.3+mc1.21.1.jar` on the client and server. Camera Tweaks remains optional and is not bundled.
 
 ## Overview
 
@@ -87,7 +87,7 @@ Set `limitFreecamToRenderDistance` to `true` and restart the server to keep supp
 .\gradlew.bat build
 ```
 
-The distributable mod is `build/libs/antifreecam-evolved-1.2.2+mc1.21.1.jar`.
+The distributable mod is `build/libs/antifreecam-evolved-1.2.3+mc1.21.1.jar`.
 
 ## Publish to CurseForge
 

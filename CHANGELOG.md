@@ -1,3 +1,11 @@
+# AntiFreecam evolved 1.2.3+mc1.21.1
+
+- Add collision enforcement for Yannis' FreeCam during flight, tripod recalls, and in F6 follow mode.
+- Prevent older FreeCam releases from hiding obstructions while collision enforcement is active.
+- Bound collision checks for long camera jumps to 512 blocks per request.
+- Apply the optional render-distance limit to Yannis' FreeCam, including after player teleports.
+- Verification uses a test implementation of the FreeCam interfaces because Yannis' FreeCam has no published 1.21.1 build.
+
 # AntiFreecam evolved 1.2.2+mc1.21.1
 
 - Add optional Camera Tweaks integration (1.7.1-1.21.1 API).
